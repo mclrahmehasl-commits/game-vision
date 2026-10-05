@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GAME VISION | گیم ویژن</title>
+<style>
+:root{--bg:#07080d;--panel:#10121b;--panel2:#151824;--text:#f5f7ff;--muted:#9da3b7;--a:#7c5cff;--b:#00d9ff;--line:#252a3a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0,#17143a 0,transparent 35%),var(--bg);color:var(--text);font-family:Tahoma,Arial,sans-serif}
+a{text-decoration:none;color:inherit}.wrap{max-width:1180px;margin:auto;padding:0 18px}
+header{position:sticky;top:0;z-index:10;background:rgba(7,8,13,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{height:70px;display:flex;align-items:center;justify-content:space-between;gap:20px}.logo{font-size:24px;font-weight:900;letter-spacing:1px}.logo span{color:var(--b)}
+nav{display:flex;gap:20px;color:#cbd0df;font-size:14px}nav a:hover{color:white}
+.hero{padding:78px 0 48px;text-align:center}.badge{display:inline-block;padding:7px 13px;border:1px solid #343951;border-radius:999px;color:#b9c0d5;background:#0d0f18;font-size:12px}
+h1{font-size:clamp(42px,8vw,82px);margin:18px 0 8px;line-height:1;background:linear-gradient(90deg,#fff,var(--b),#9c7cff);-webkit-background-clip:text;color:transparent}
+.hero p{max-width:680px;margin:18px auto;color:var(--muted);line-height:2}.search{display:flex;max-width:650px;margin:28px auto 0;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:6px}.search input{flex:1;background:transparent;border:0;outline:0;color:white;padding:13px;font-size:15px}.search button,.btn{border:0;border-radius:10px;background:linear-gradient(135deg,var(--a),var(--b));color:white;font-weight:800;padding:12px 20px;cursor:pointer}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin:22px 0}.section-head h2{margin:0;font-size:22px}.count{color:var(--muted);font-size:13px}
+.filters{display:flex;gap:9px;overflow:auto;padding-bottom:10px}.filter{white-space:nowrap;background:var(--panel);border:1px solid var(--line);color:#bfc5d7;border-radius:10px;padding:9px 14px;cursor:pointer}.filter.active,.filter:hover{background:#1a1930;color:white;border-color:#5149a0}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.card{background:linear-gradient(180deg,#121521,#0d0f17);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:.2s}.card:hover{transform:translateY(-4px);border-color:#454b69}.cover{height:150px;display:flex;align-items:flex-end;padding:14px;background:linear-gradient(135deg,#25234a,#111827 55%,#082a35);position:relative}.cover:after{content:"GAME VISION";position:absolute;inset:auto 12px 10px auto;font-size:10px;color:#ffffff55}.tag{position:absolute;top:10px;right:10px;background:#0009;padding:5px 8px;border-radius:7px;font-size:10px}.cardbody{padding:14px}.card h3{margin:0 0 8px;font-size:16px}.meta{color:var(--muted);font-size:11px;margin-bottom:13px}.download{display:block;text-align:center;background:#191d2a;border:1px solid #2d3346;border-radius:9px;padding:9px;font-size:12px}.download:hover{background:#252b3b}
+.empty{display:none;text-align:center;padding:45px;color:var(--muted);grid-column:1/-1}
+footer{margin-top:70px;border-top:1px solid var(--line);padding:28px 0;color:#7f869b;text-align:center;font-size:12px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}nav{display:none}}@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding-top:55px}.cover{height:180px}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+<a class="logo" href="#">GAME <span>VISION</span></a>
+<nav><a href="#games">بازی‌ها</a><a href="#about">درباره</a></nav>
+<a class="btn" href="#games">شروع</a>
+</div></header>
+
+<main>
+<section class="hero wrap">
+<span class="badge">🎮 مرکز بازی‌های GAME VISION</span>
+<h1>GAME VISION</h1>
+<p>یک صفحه‌ی سریع و سبک برای معرفی بازی‌ها و قرار دادن لینک‌های دانلود. طراحی شده برای اینکه بدون شلوغی، بازی موردنظرت را سریع پیدا کنی.</p>
+<div class="search"><input id="search" placeholder="نام بازی را جستجو کن..."><button onclick="filterGames()">جستجو</button></div>
+</section>
+
+<section id="games" class="wrap">
+<div class="section-head"><h2>بازی‌های جدید</h2><span class="count" id="count"></span></div>
+<div class="filters">
+<button class="filter active" data-cat="all">همه</button><button class="filter" data-cat="action">اکشن</button><button class="filter" data-cat="adventure">ماجراجویی</button><button class="filter" data-cat="racing">مسابقه‌ای</button>
+</div>
+<div class="grid" id="grid"></div>
+</section>
+</main>
+
+<footer id="about"><div class="wrap">© 2026 GAME VISION — طراحی سبک، سریع و مناسب موبایل و PC</div></footer>
+
+<script>
+const games=[
+{name:"The Witcher 3",cat:"adventure",size:"50 GB",ver:"Remastered",url:"#"},
+{name:"Mortal Kombat",cat:"action",size:"2.1 GB",ver:"Android",url:"#"},
+{name:"Red Dead Redemption 2",cat:"adventure",size:"120 GB",ver:"PC",url:"#"},
+{name:"Forza Horizon 5",cat:"racing",size:"110 GB",ver:"PC",url:"#"},
+{name:"Far Cry 6",cat:"action",size:"90 GB",ver:"PC",url:"#"},
+{name:"God of War",cat:"action",size:"70 GB",ver:"PC",url:"#"},
+{name:"Need for Speed Heat",cat:"racing",size:"35 GB",ver:"PC",url:"#"},
+{name:"Hogwarts Legacy",cat:"adventure",size:"85 GB",ver:"PC",url:"#"}
+];
+let active="all";
+function render(){
+ const q=document.getElementById("search").value.trim().toLowerCase();
+ const list=games.filter(g=>(active==="all"||g.cat===active)&&g.name.toLowerCase().includes(q));
+ document.getElementById("count").textContent=list.length+" بازی";
+ document.getElementById("grid").innerHTML=list.map(g=>`
+ <article class="card">
+  <div class="cover"><span class="tag">${g.ver}</span></div>
+  <div class="cardbody"><h3>${g.name}</h3><div class="meta">${g.size} • ${g.cat==="action"?"اکشن":g.cat==="racing"?"مسابقه‌ای":"ماجراجویی"}</div>
+  <a class="download" href="${g.url}">مشاهده / دانلود</a></div>
+ </article>`).join("")||'<div class="empty" style="display:block">بازی موردنظر پیدا نشد.</div>';
+}
+function filterGames(){render()}
+document.querySelectorAll(".filter").forEach(b=>b.onclick=()=>{document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));b.classList.add("active");active=b.dataset.cat;render()});
+document.getElementById("search").addEventListener("input",render);render();
+</script>
+</body>
+</html>
